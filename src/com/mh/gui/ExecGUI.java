@@ -7,7 +7,10 @@ package com.mh.gui;
 import com.mh.biz.Helado;
 import com.mh.biz.MaquinaHelados;
 import com.mh.biz.Venta;
+import java.awt.PopupMenu;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -52,6 +55,7 @@ public class ExecGUI extends javax.swing.JFrame {
         jButtonBorrar = new javax.swing.JButton();
         jLabelMonedero = new javax.swing.JLabel();
         jLabelPosicion = new javax.swing.JLabel();
+        jLabelHelado = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuVentas = new javax.swing.JMenuItem();
@@ -183,6 +187,11 @@ public class ExecGUI extends javax.swing.JFrame {
         });
 
         jButtonPedirHelado.setText("Pedir Helado");
+        jButtonPedirHelado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPedirHeladoActionPerformed(evt);
+            }
+        });
 
         jButtonBorrar.setText("<");
         jButtonBorrar.addActionListener(new java.awt.event.ActionListener() {
@@ -229,9 +238,9 @@ public class ExecGUI extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(210, 210, 210)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -245,7 +254,11 @@ public class ExecGUI extends javax.swing.JFrame {
                             .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(23, 23, 23)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 592, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 592, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jLabelHelado, javax.swing.GroupLayout.PREFERRED_SIZE, 579, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(27, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -266,7 +279,9 @@ public class ExecGUI extends javax.swing.JFrame {
                     .addComponent(jLabelMonedero, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabelHelado, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(7, 7, 7)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelPosicion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -278,7 +293,7 @@ public class ExecGUI extends javax.swing.JFrame {
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -290,7 +305,7 @@ public class ExecGUI extends javax.swing.JFrame {
                     .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton0, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(110, Short.MAX_VALUE))
+                .addContainerGap(105, Short.MAX_VALUE))
         );
 
         pack();
@@ -429,7 +444,29 @@ public class ExecGUI extends javax.swing.JFrame {
         int row = this.jTable1.getSelectedRow();
         String pos = this.jTable1.getValueAt(row, 0).toString();
         this.jLabelPosicion.setText(pos);
+        
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jButtonPedirHeladoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPedirHeladoActionPerformed
+        try {
+            // TODO add your handling code here:
+            PopupMenu popup = new PopupMenu();
+            Helado conseguido = null;
+            conseguido = this.mh.pedirHelado(this.jLabelPosicion.getText());
+            
+           
+            if (conseguido != null) {
+                 this.refreshTable();
+                jLabelHelado.setText("Helado" + conseguido.getNombre() + "\n" + " conseguido!!" + "\n" + "Aqui tiene su cambio: "
+                        +"\n" + this.mh.getMonedero());
+                this.mh.setMonedero(0);
+            }
+          jLabelMonedero.setText(String.format("%.2f", mh.getMonedero()) + "€");
+            
+        } catch (Exception ex) {
+            Logger.getLogger(ExecGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonPedirHeladoActionPerformed
 
     private void refreshTable() {
         try {
@@ -512,6 +549,7 @@ public class ExecGUI extends javax.swing.JFrame {
     private javax.swing.JButton jButtonDevolver;
     private javax.swing.JButton jButtonInsertarMonedas;
     private javax.swing.JButton jButtonPedirHelado;
+    private javax.swing.JLabel jLabelHelado;
     private javax.swing.JLabel jLabelMonedero;
     private javax.swing.JLabel jLabelPosicion;
     private javax.swing.JMenu jMenu1;
