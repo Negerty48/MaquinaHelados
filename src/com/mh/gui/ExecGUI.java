@@ -11,6 +11,7 @@ import java.awt.PopupMenu;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -456,10 +457,9 @@ public class ExecGUI extends javax.swing.JFrame {
             
            
             if (conseguido != null) {
+                showHelado(conseguido);
                  this.refreshTable();
-                jLabelHelado.setText("Helado" + conseguido.getNombre() + "\n" + " conseguido!!" + "\n" + "Aqui tiene su cambio: "
-                        +"\n" + this.mh.getMonedero());
-                this.mh.setMonedero(0);
+                
             }
           jLabelMonedero.setText(String.format("%.2f", mh.getMonedero()) + "€");
             
@@ -479,6 +479,13 @@ public class ExecGUI extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    private void showHelado(Helado conseguido) {
+        StringBuilder message = new StringBuilder("Aqui tiene su " + conseguido.getNombre() + "Que lo disfrute!!!" + "\n" + "Aquí tiene su cambio: " + mh.getMonedero() + "€");
+        mh.setMonedero(0);
+        JOptionPane.showMessageDialog(this, message);
+        
     }
     
     public ArrayList<Venta> getVentas() throws Exception {
@@ -558,4 +565,6 @@ public class ExecGUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+
+    
 }
